@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Taproot Hero Image Blockh
+ * Plugin Name: Taproot Hero Image Block
  * Plugin URI: https://github.com/skyshab/
  * Description: Creates a new Gutenberg Block for adding a hero image — created via create-guten-block.
  * Version: 1.0.0
