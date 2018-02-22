@@ -1,0 +1,1 @@
+taproot-hero-image-block
