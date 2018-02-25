@@ -36,30 +36,30 @@
  * CSS for just Backend enqueued after style.scss
  * which makes it higher in priority.
  */
-.wp-block-taproot-hero-image .blocks-rich-text__tinymce[data-is-empty="true"]:before {
-  position: inherit; }
+.wp-block-taproot-hero-image {
+  -ms-flex-direction: column;
+      flex-direction: column; }
+  .wp-block-taproot-hero-image .blocks-rich-text__tinymce[data-is-empty="true"]:before {
+    position: inherit; }
+  .wp-block-taproot-hero-image .blocks-rich-text__tinymce a {
+    color: white; }
+  .wp-block-taproot-hero-image .blocks-rich-text__tinymce:focus a[data-mce-selected] {
+    padding: 0 2px;
+    margin: 0 -2px;
+    border-radius: 2px;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    background: rgba(255, 255, 255, 0.3); }
+  .wp-block-taproot-hero-image .blocks-rich-text strong {
+    font-weight: 300; }
+  .wp-block-taproot-hero-image.components-placeholder h2 {
+    color: inherit; }
+  .wp-block-taproot-hero-image.has-left-content .block-rich-text__inline-toolbar {
+    -ms-flex-pack: start;
+        justify-content: flex-start; }
+  .wp-block-taproot-hero-image.has-right-content .block-rich-text__inline-toolbar {
+    -ms-flex-pack: end;
+        justify-content: flex-end; }
 
-.wp-block-taproot-hero-image .blocks-rich-text__tinymce a {
-  color: white; }
-
-.wp-block-taproot-hero-image .blocks-rich-text__tinymce:focus a[data-mce-selected] {
-  padding: 0 2px;
-  margin: 0 -2px;
-  border-radius: 2px;
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  background: rgba(255, 255, 255, 0.3); }
-
-.wp-block-taproot-hero-image .blocks-rich-text strong {
-  font-weight: 300; }
-
-.wp-block-taproot-hero-image.components-placeholder h2 {
-  color: inherit; }
-
-.wp-block-taproot-hero-image.has-left-content .block-rich-text__inline-toolbar {
-  -ms-flex-pack: start;
-      justify-content: flex-start; }
-
-.wp-block-taproot-hero-image.has-right-content .block-rich-text__inline-toolbar {
-  -ms-flex-pack: end;
-      justify-content: flex-end; }
+.blocks-range-control__number {
+  width: 55px; }

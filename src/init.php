@@ -72,7 +72,7 @@ function tr_hero_image_editor_assets()
  *
  * @since 1.0.0
  */
-add_filter( 'the_content', 'tr_customize_blocks', 8 );
+// add_filter( 'the_content', 'tr_customize_blocks', 8 );
 function tr_customize_blocks( $content ) 
 {
 	$blocks = gutenberg_parse_blocks( $content );
@@ -98,14 +98,50 @@ function tr_customize_blocks( $content )
  */
 function tr_print_hero_image_block()
 {
-	$blocks = gutenberg_parse_blocks( get_the_content() );
-	foreach ($blocks as $i => $args) 
-	{
-		if( isset( $args['blockName'] ) && 'taproot/hero-image' === $args['blockName'] )
-		{
-			echo gutenberg_render_block( $blocks[$i] );
-			break;
-		}
-	}
+	global $post;
+
+	$image_url = get_post_meta($post->ID, 'taproot_hero_image_url', true);
+	$hero_title = get_post_meta($post->ID, 'taproot_hero_title', true);
+	$overlay_color = get_post_meta($post->ID, 'taproot_hero_overlay_color', true);
+	$overlay_opacity = get_post_meta($post->ID, 'taproot_hero_overlay_opacity', true);
+
+	
+
+	printf('<section class="wp-block-taproot-hero-image" style="background-image: url(%s);"><div class="overlay" style="background-color: %s; opacity: %s;""></div><h2>%s</h2></section>',
+		$image_url,
+		$overlay_color,
+		$overlay_opacity,
+		$hero_title
+	);
+
 }
 
+
+
+add_action( 'init', 'tr_my_block_init' );
+function tr_my_block_init() 
+{
+	register_meta( 'post', 'taproot_hero_image_url', array(
+		'type' => 'string',
+		'show_in_rest' => true,
+		'single' => true,
+	) );
+
+	register_meta( 'post', 'taproot_hero_title', array(
+		'type' => 'string',
+		'show_in_rest' => true,
+	) );	
+
+	register_meta( 'post', 'taproot_hero_overlay_opacity', array(
+		'type' => 'number',
+		'show_in_rest' => true,
+		'single' => true,
+	) );
+
+	register_meta( 'post', 'taproot_hero_overlay_color', array(
+		'type' => 'string',
+		'show_in_rest' => true,
+		'single' => true,
+	) );	
+	
+}

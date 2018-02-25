@@ -6,6 +6,8 @@
  */
 
 .wp-block-taproot-hero-image {
+	flex-direction: column;
+	
 	.blocks-rich-text__tinymce[data-is-empty="true"]:before {
 		position: inherit;
 	}
@@ -37,5 +39,12 @@
 	&.has-right-content .block-rich-text__inline-toolbar{
 		justify-content: flex-end;
 	}
+
+	.section__content {
+
+	}
+}
+.blocks-range-control__number {
+	width: 55px;
 }
 

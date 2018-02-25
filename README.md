@@ -8,7 +8,7 @@ To run as a WordPress plugin requires the [Gutenberg feature plugin](https://git
 
 ## Usage
 
-The hero image block configured in the Gutenberg interface will be filtered out of `the_content`. To output the block markup in your template, use the `tr_print_hero_image_block();` function. It currently needs to be in the loop, but I would like to detach it and make it available elsewhere in the template. Ideally, the contents of the block would be stored in the post meta rather than the content, but I'm not sure this is possible yet. 
+The hero image block configured in the Gutenberg interface is a single use block that stores its data in post meta. To output the block markup in your template, use the `tr_print_hero_image_block();` function. 
 
 This is currently meant only as a demonstration and learning project, but may evolve into a production ready plugin at some point. 
 

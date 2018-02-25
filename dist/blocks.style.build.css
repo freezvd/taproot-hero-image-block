@@ -69,7 +69,7 @@
     text-align: center; }
   .wp-block-taproot-hero-image.has-parallax {
     background-attachment: fixed; }
-  .wp-block-taproot-hero-image.has-background-dim:before {
+  .wp-block-taproot-hero-image .overlay {
     content: '';
     position: absolute;
     top: 0;
@@ -77,25 +77,25 @@
     bottom: 0;
     right: 0;
     background: rgba(0, 0, 0, 0.5); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-10:before {
-    background-color: rgba(0, 0, 0, 0.1); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-20:before {
-    background-color: rgba(0, 0, 0, 0.2); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-30:before {
-    background-color: rgba(0, 0, 0, 0.3); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-40:before {
-    background-color: rgba(0, 0, 0, 0.4); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-50:before {
-    background-color: rgba(0, 0, 0, 0.5); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-60:before {
-    background-color: rgba(0, 0, 0, 0.6); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-70:before {
-    background-color: rgba(0, 0, 0, 0.7); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-80:before {
-    background-color: rgba(0, 0, 0, 0.8); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-90:before {
-    background-color: rgba(0, 0, 0, 0.9); }
-  .wp-block-taproot-hero-image.has-background-dim.has-background-dim-100:before {
-    background-color: black; }
+  .wp-block-taproot-hero-image .has-background-dim-10 .overlay {
+    opacity: 0.1; }
+  .wp-block-taproot-hero-image .has-background-dim-20 .overlay {
+    opacity: 0.2; }
+  .wp-block-taproot-hero-image .has-background-dim-30 .overlay {
+    opacity: 0.3; }
+  .wp-block-taproot-hero-image .has-background-dim-40 .overlay {
+    opacity: 0.4; }
+  .wp-block-taproot-hero-image .has-background-dim-50 .overlay {
+    opacity: 0.5; }
+  .wp-block-taproot-hero-image .has-background-dim-60 .overlay {
+    opacity: 0.6; }
+  .wp-block-taproot-hero-image .has-background-dim-70 .overlay {
+    opacity: 0.7; }
+  .wp-block-taproot-hero-image .has-background-dim-80 .overlay {
+    opacity: 0.8; }
+  .wp-block-taproot-hero-image .has-background-dim-90 .overlay {
+    opacity: 0.9; }
+  .wp-block-taproot-hero-image .has-background-dim-100 .overlay {
+    opacity: 1; }
   .wp-block-taproot-hero-image.components-placeholder {
     height: inherit; }

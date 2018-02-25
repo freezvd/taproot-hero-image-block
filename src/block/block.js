@@ -5,7 +5,6 @@
  * Simple block, renders and saves the same content without any interactivity.
  */
 
-//  Import CSS.
 import './style.scss';
 import './editor.scss';
 
@@ -18,7 +17,9 @@ const el = wp.element.createElement;
 
 const { 
 	IconButton,
+	Button,
     PanelBody,
+	PanelColor,    
     RangeControl,
     ToggleControl,
     Toolbar
@@ -29,9 +30,11 @@ const {
 	RichText,
 	AlignmentToolbar,
 	BlockControls,
+	InnerBlocks,
 	MediaUpload,
 	BlockAlignmentToolbar,
 	InspectorControls,
+	ColorPalette,
 } = wp.blocks;
 
 import { default as ImagePlaceHolder } from '../blocks/image-placeholder';
@@ -43,7 +46,7 @@ const HeroImageName = 'taproot/hero-image';
 const HeroImageSettings = {
 	title: __( 'Hero Image' ),
 
-	description: __( 'Hero Image is a bold image block with an optional title.' ),
+	description: __( 'The Hero Image block is an image and optional title that can be inserted into the template.' ),
 
 	icon: 'format-image',
 
@@ -51,15 +54,15 @@ const HeroImageSettings = {
 
 	attributes: {
 		title: {
-			type: 'array',
-			source: 'children',
+			type: 'string',
+			source: 'meta',
 			selector: 'h2',
+			meta: 'taproot_hero_title',						
 		},
 		url: {
 			type: 'string',
-		},
-		align: {
-			type: 'string',
+			source: 'meta',			
+			meta: 'taproot_hero_image_url',			
 		},
 		contentAlign: {
 			type: 'string',
@@ -72,11 +75,20 @@ const HeroImageSettings = {
 			type: 'boolean',
 			default: false,
 		},
+		overlayColor: {
+			type: 'string',
+			source: 'meta',			
+			meta: 'taproot_hero_overlay_color',	
+		},
 		dimRatio: {
 			type: 'number',
-			default: 50,
-		},
+			default: 0.50,
+			source: 'meta',
+			meta: 'taproot_hero_overlay_opacity',				
+		},		
 	},
+
+	useOnce: true,
 
 	getEditWrapperProps( attributes ) {
 		const { align } = attributes;
@@ -86,8 +98,7 @@ const HeroImageSettings = {
 	},
 
 	edit( { attributes, setAttributes, isSelected, className } ) {
-		const { url, title, align, contentAlign, id, hasParallax, dimRatio } = attributes;
-		const updateAlignment = ( nextAlign ) => setAttributes( { align: nextAlign } );
+		const { url, title, contentAlign, id, hasParallax, overlayColor, dimRatio } = attributes;
 		const onSelectImage = ( media ) => setAttributes( { url: media.url, id: media.id } );
 		const toggleParallax = () => setAttributes( { hasParallax: ! hasParallax } );
 		const setDimRatio = ( ratio ) => setAttributes( { dimRatio: ratio } );
@@ -98,14 +109,13 @@ const HeroImageSettings = {
 		const classes = classnames(
 			className,
 			contentAlign !== 'center' && `has-${ contentAlign }-content`,
-			dimRatioToClass( dimRatio ),
 			{
 				'has-background-dim': dimRatio !== 0,
 				'has-parallax': hasParallax,
 			}
 		);
 
-		const alignmentToolbar	= (
+		const alignmentToolbar = (
 			<AlignmentToolbar
 				value={ contentAlign }
 				onChange={ ( nextAlign ) => {
@@ -115,11 +125,6 @@ const HeroImageSettings = {
 		);
 		const controls = isSelected && [
 			<BlockControls key="controls">
-				<BlockAlignmentToolbar
-					value={ align }
-					onChange={ updateAlignment }
-				/>
-
 				{ alignmentToolbar }
 				<Toolbar>
 					<MediaUpload
@@ -143,18 +148,21 @@ const HeroImageSettings = {
 					label={ __( 'Fixed Background' ) }
 					checked={ !! hasParallax }
 					onChange={ toggleParallax }
-				/>
+				/>				
+				<PanelColor title={ __( 'Overlay Color' ) } colorValue={ overlayColor } initialOpen={ false }>
+					<ColorPalette
+						value={ overlayColor }
+						onChange={ ( colorValue ) => setAttributes( { overlayColor: colorValue } ) }
+					/>	
+				</PanelColor>
 				<RangeControl
-					label={ __( 'Background Dimness' ) }
+					label={ __( 'Overlay Opacity' ) }
 					value={ dimRatio }
 					onChange={ setDimRatio }
 					min={ 0 }
-					max={ 100 }
-					step={ 10 }
+					max={ 1 }
+					step={ 0.01 }
 				/>
-				<PanelBody title={ __( 'Text Alignment' ) }>
-					{ alignmentToolbar }
-				</PanelBody>
 			</InspectorControls>,
 		];
 
@@ -185,6 +193,10 @@ const HeroImageSettings = {
 				style={ style }
 				className={ classes }
 			>
+				{ el(
+					'div', 
+					{ className: 'overlay', style: {backgroundColor: overlayColor, opacity: dimRatio} }
+				) }
 				{ title || isSelected ? (
 					<RichText
 						tagName="h2"
@@ -194,40 +206,16 @@ const HeroImageSettings = {
 						isSelected={ isSelected }
 						inlineToolbar
 					/>
-				) : null }
+				) : null }	
+
 			</section>,
 		];
 	},
 
-	save( { attributes, className } ) {
-		const { url, title, hasParallax, dimRatio, align, contentAlign } = attributes;
-		const style = url ?
-			{ backgroundImage: `url(${ url })` } :
-			undefined;
-		const classes = classnames(
-			className,
-			dimRatioToClass( dimRatio ),
-			{
-				'has-background-dim': dimRatio !== 0,
-				'has-parallax': hasParallax,
-				[ `has-${ contentAlign }-content` ]: contentAlign !== 'center',
-			},
-			align ? `align${ align }` : null,
-		);
-
-		return (
-			<section className={ classes } style={ style }>
-				<h2>{ title }</h2>
-			</section>
-		);
+	save() {
+		return null;
 	},
 };
-
-function dimRatioToClass( ratio ) {
-	return ( ratio === 0 || ratio === 50 ) ?
-		null :
-		'has-background-dim-' + ( 10 * Math.round( ratio / 10 ) );
-}
 
 
 registerBlockType( HeroImageName, HeroImageSettings );
